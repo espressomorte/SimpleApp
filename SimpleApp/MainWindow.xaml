@@ -59,11 +59,11 @@
         <materialDesign:MaterialDateDisplay VerticalAlignment="Center" Margin="16" Opacity="0.8" FontFamily="Roboto"/>
 
 
-      
+
         <!--#region TILE-->
         <Border Grid.Row="1" Effect="{StaticResource z-depth1}" Background="White"/>
         <DockPanel Grid.Row="1" Margin="3" >
-            <TextBlock Text="USD" DockPanel.Dock="Left" 
+            <TextBlock Text="{Binding CurrencyName}"  DockPanel.Dock="Left" 
                        FontFamily="Roboto"
                        Width="auto" 
                        Height="auto" 
@@ -80,9 +80,9 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text ="{Binding Values.Sell}"  Opacity="0.7" FontSize="22"  FontFamily="Roboto light" Padding="13,0,0,0" ScrollViewer.CanContentScroll="True"/>
+                    <TextBlock Text ="{Binding SellRate}"  Opacity="0.7" FontSize="22"  FontFamily="Roboto light" Padding="13,0,0,0" ScrollViewer.CanContentScroll="True"/>
                     <TextBlock Text="{Binding SellTrend}" Opacity="0.6" FontFamily="Roboto light" Grid.Column="1" />
-                    <TextBlock Text="{Binding Values.Buy}" Opacity="0.7" FontSize="22" FontFamily="Roboto light" Grid.Row="1" Padding="13,0,0,0"/>
+                    <TextBlock Text="{Binding BuyRate}" Opacity="0.7" FontSize="22" FontFamily="Roboto light" Grid.Row="1" Padding="13,0,0,0"/>
                     <TextBlock Text="{Binding BuyTrend}" Opacity="0.6" FontFamily="Roboto light" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
             </StackPanel>
@@ -117,12 +117,12 @@
             </StackPanel>
         </DockPanel>
         <!--#endregion-->
- 
+
         <Grid Grid.Row="3">
             <ItemsControl x:Name="RatesList" ItemTemplate="{StaticResource DataTemplate}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        
+
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>

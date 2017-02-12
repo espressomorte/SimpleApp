@@ -48,9 +48,7 @@
     <Compile Include="RateModel.cs" />
     <Compile Include="RateObject.cs" />
     <Compile Include="RateRepository.cs" />
-    <Compile Include="rateValues.cs" />
-    <Compile Include="UsdWrapper.cs" />
-    <Compile Include="ValueSet.cs" />
+    <Compile Include="OpenratesResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -11,7 +11,7 @@ namespace SimpleApp.BL
     public class RateObject
     {
 
-       public rateValues Values { get; set; }
+       public RateValues Values { get; set; }
         public decimal SellTrend { get; set; }
         public decimal BuyTrend { get; set; }
 
@@ -20,8 +20,6 @@ namespace SimpleApp.BL
             Values = RateRepository.getValueSet().interbankRateValues;
             getTrends();
         }
-
-
 
         static decimal trend(decimal actual, decimal old) => actual - old;
 
@@ -35,9 +33,6 @@ namespace SimpleApp.BL
             SellTrend = trend(Values.Sell, previousValues.Sell);
             BuyTrend = trend(Values.Buy, previousValues.Buy);
         }
-
-        
-
 
     }
 }
