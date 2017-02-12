@@ -31,8 +31,10 @@ namespace SimpleApp
 
             InitializeComponent();
             //DataContext = new RateObject();
-            DataContext = RateRepository.Retrieve();
-            
+            Controller c = new Controller();
+            c.RetrieveCurrent();
+            DataContext = c.Rates;
+            c.UpdateTrends();
         }
 
 
