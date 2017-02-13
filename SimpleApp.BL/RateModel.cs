@@ -13,7 +13,7 @@ namespace SimpleApp.BL
         public decimal SellRate { get; set; }
         public decimal? BuyTrend { get; set; }
         public decimal? SellTrend { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime TradeDate { get; set; }
         
     }
 }

@@ -13,12 +13,17 @@ namespace SimpleApp.BL
     public class Controller
     {
         Repository repo = new Repository();
+        
+        public DateTime TimeStamp()
+        {
+            return DateTime.Now;
+        }
 
         public static Positions getValueSet()
         {
             string url = @"http://openrates.in.ua/rates";
             var ratesString = new WebClient().DownloadString(url);
-            var valueSet = JsonConvert.DeserializeObject<OpenratesResponse>(ratesString).Dollar;
+            var valueSet = JsonConvert.DeserializeObject<OpenratesResponse>(ratesString).Currency;
             return valueSet;
         }
 
@@ -28,7 +33,7 @@ namespace SimpleApp.BL
             StringBuilder url = new StringBuilder();
             url.Append(@"http://openrates.in.ua/rates?date=").
                     Append(date.Year.ToString() + "-" + date.Month.ToString() + "-" + date.Day);
-            return ResponseToModel(ReadJson(url.ToString()));
+            return ResponseToModel(ReadJson(url.ToString()),date);
         }
 
         public void UpdateTrends()
@@ -61,11 +66,11 @@ namespace SimpleApp.BL
         public void RetrieveCurrent()
         {
             var data = ReadJson();
-            List<RateModel> list = ResponseToModel(data);
+            List<RateModel> list = ResponseToModel(data,TimeStamp());
             repo.AddRates(list);
         }
 
-        private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data)
+        private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data,DateTime date)
         {
             var list = new List<RateModel>();
             foreach (KeyValuePair<string, Positions> pair in data)
@@ -77,7 +82,7 @@ namespace SimpleApp.BL
                     SellRate = pair.Value.interbankRateValues.Sell,
                     SellTrend = null,
                     BuyTrend = null,
-                    CreationDate = DateTime.Now
+                    TradeDate = date
                 };
                 list.Add(rm);
             }

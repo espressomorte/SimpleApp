@@ -9,10 +9,8 @@ namespace SimpleApp
 
     public class OpenratesResponse
     {
-        [JsonProperty("USD")]
-        public Positions Dollar { get; set; }
-        [JsonProperty("EUR")]
-        public Positions Euro { get; set; }
+        //[JsonProperty("USD")]
+        public Positions Currency { get; set; }
     }
 
     public class Positions

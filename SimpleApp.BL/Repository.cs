@@ -9,27 +9,44 @@ namespace SimpleApp.BL
     class Repository
     {
         private List<RateModel> rates = new List<RateModel>();
-        private HashSet<DateTime> dates = new HashSet<DateTime>();
+        private SortedSet<DateTime> dates = new SortedSet<DateTime>();
 
+        public decimal trend(decimal actual, decimal old) => actual - old;
 
         public void AddRates(List<RateModel> list) {
             rates.AddRange(list);
             foreach(RateModel rate in list)
             {
-                dates.Add(rate.CreationDate);
+                dates.Add(rate.TradeDate);
                 UpdateTrends();
             }
         }
 
         protected void UpdateTrends()
         {
-           
+            if (dates.Count>1)
+            {
+                for (int i = 0; i < dates.Count; i++)
+                {
+                    var PreviousRates = rates.Where(r => r.TradeDate == dates.ElementAt(i)).ToList();
+                    foreach (var item in PreviousRates)
+                    {
+                        var Current = rates.First(r => r.CurrencyName == item.CurrencyName);
+                        rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
+                    }
+
+                }
+            }
+     
         }
 
         // TODO: rates are exposed, so incapsulation is basically screwed.
         internal List<RateModel> GetRates()
         {
-            return rates;
+  
+            var query = rates.Where(r => r.TradeDate == dates.First()).ToList();
+            return query;
+            //return rates;
         }
     }
 }
