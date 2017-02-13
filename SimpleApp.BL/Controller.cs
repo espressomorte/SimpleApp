@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using static SimpleApp.OpenratesResponse;
 
 namespace SimpleApp.BL
 {
@@ -14,21 +11,12 @@ namespace SimpleApp.BL
     {
         Repository repo = new Repository();
         
-        public DateTime TimeStamp()
+        private DateTime TimeStamp()
         {
             return DateTime.Now;
         }
 
-        public static Positions getValueSet()
-        {
-            string url = @"http://openrates.in.ua/rates";
-            var ratesString = new WebClient().DownloadString(url);
-            var valueSet = JsonConvert.DeserializeObject<OpenratesResponse>(ratesString).Currency;
-            return valueSet;
-        }
-
-
-        private List<RateModel> getRatesByDate(DateTime date)
+        private List<RateModel> GetRatesByDate(DateTime date)
         {
             StringBuilder url = new StringBuilder();
             url.Append(@"http://openrates.in.ua/rates?date=").
@@ -42,7 +30,7 @@ namespace SimpleApp.BL
             
         }
 
-        public Dictionary<string, Positions> ReadJson()
+        private Dictionary<string, Positions> ReadJson()
         {
             string url = @"http://openrates.in.ua/rates";
             return ReadJson(url);
@@ -57,10 +45,9 @@ namespace SimpleApp.BL
 
         private void RetrieveLastDay()
         {
-            //getting previous day rates
             DateTime datetime = TimeStamp();
-            datetime = datetime.AddDays(-1);
-            var previous = getRatesByDate(datetime);
+            datetime = datetime.AddDays(-4);
+            var previous = GetRatesByDate(datetime);
             repo.AddRates(previous);
         }
 
@@ -73,10 +60,7 @@ namespace SimpleApp.BL
 
         private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data,DateTime date)
         {
-            var list = new List<RateModel>();
-            foreach (KeyValuePair<string, Positions> pair in data)
-            {
-                RateModel rm = new RateModel
+            return data.AsParallel().Select(pair => new RateModel
                 {
                     CurrencyName = pair.Key,
                     BuyRate = pair.Value.interbankRateValues.Buy,
@@ -84,11 +68,8 @@ namespace SimpleApp.BL
                     SellTrend = null,
                     BuyTrend = null,
                     TradeDate = date
-                };
-                list.Add(rm);
-            }
-
-            return list;
+                })
+                .ToList();
         }
 
         public List<RateModel> Rates

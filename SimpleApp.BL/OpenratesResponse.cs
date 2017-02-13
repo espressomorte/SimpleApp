@@ -1,10 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Runtime.Serialization;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 
-namespace SimpleApp
+namespace SimpleApp.BL
 {
 
     public class OpenratesResponse
