@@ -35,7 +35,7 @@ namespace SimpleApp
             c.RetrieveCurrent();
             
             c.UpdateTrends();
-
+           
             DataContext = c.Rates;
         }
 

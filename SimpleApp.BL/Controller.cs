@@ -39,6 +39,7 @@ namespace SimpleApp.BL
         public void UpdateTrends()
         {
             RetrieveLastDay();
+            
         }
 
         public Dictionary<string, Positions> ReadJson()
@@ -57,7 +58,7 @@ namespace SimpleApp.BL
         private void RetrieveLastDay()
         {
             //getting previous day rates
-            DateTime datetime = DateTime.Now;
+            DateTime datetime = TimeStamp();
             datetime = datetime.AddDays(-1);
             var previous = getRatesByDate(datetime);
             repo.AddRates(previous);

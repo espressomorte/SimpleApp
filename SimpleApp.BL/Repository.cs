@@ -43,9 +43,8 @@ namespace SimpleApp.BL
         // TODO: rates are exposed, so incapsulation is basically screwed.
         internal List<RateModel> GetRates()
         {
-  
-            var query = rates.Where(r => r.TradeDate == dates.First()).ToList();
-            return query;
+            UpdateTrends();
+            return new List<RateModel>(rates.Where(r => r.TradeDate == dates.Last()).ToList());
             //return rates;
         }
     }
