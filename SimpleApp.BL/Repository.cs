@@ -26,14 +26,16 @@ namespace SimpleApp.BL
         {
             if (dates.Count>1)
             {
-                for (int i = 0; i < dates.Count; i++)
-                {
-                    var PreviousRates = rates.Where(r => r.TradeDate == dates.ElementAt(i)).ToList();
+                //for (int i = 0; i < dates.Count; i++)
+                //{
+                    var PreviousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
                     foreach (var item in PreviousRates)
                     {
                         var Current = rates.First(r => r.CurrencyName == item.CurrencyName);
-                        rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
-                    }
+                        //rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
+                        Current.SellTrend = Current.SellRate - item.SellRate;
+                    Current.BuyTrend = Current.BuyRate - item.BuyRate;
+                    //}
 
                 }
             }
@@ -43,7 +45,6 @@ namespace SimpleApp.BL
         // TODO: rates are exposed, so incapsulation is basically screwed.
         internal List<RateModel> GetRates()
         {
-            UpdateTrends();
             return new List<RateModel>(rates.Where(r => r.TradeDate == dates.Last()).ToList());
             //return rates;
         }

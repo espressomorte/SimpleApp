@@ -59,7 +59,7 @@ namespace SimpleApp.BL
         {
             //getting previous day rates
             DateTime datetime = TimeStamp();
-            datetime = datetime.AddDays(-1);
+            datetime = datetime.AddDays(-2);
             var previous = getRatesByDate(datetime);
             repo.AddRates(previous);
         }
