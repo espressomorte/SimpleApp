@@ -34,7 +34,7 @@
                        Width="auto" 
                        Height="auto" 
                        HorizontalAlignment="Left" 
-                       VerticalAlignment="Center" FontSize="30" Opacity="0.8" Padding="13,0,0,0"/>
+                       VerticalAlignment="Center" FontSize="28" Opacity="0.8" Padding="11,0,0,0"/>
                 <StackPanel  VerticalAlignment="Center" >
                     <Grid >
                         <Grid.ColumnDefinitions>
@@ -46,9 +46,9 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text ="{Binding SellRate}"  Opacity="0.7" FontSize="22"  FontFamily="Roboto light" Padding="13,0,0,0" ScrollViewer.CanContentScroll="True"/>
+                        <TextBlock Text ="{Binding SellRate}"  Opacity="0.7" FontSize="22"  FontFamily="Roboto light" Padding="11,0,0,0" ScrollViewer.CanContentScroll="True"/>
                         <TextBlock Text="{Binding SellTrend}" Opacity="0.6" FontFamily="Roboto light" Grid.Column="1" />
-                        <TextBlock Text="{Binding BuyRate}" Opacity="0.7" FontSize="22" FontFamily="Roboto light" Grid.Row="1" Padding="13,0,0,0"/>
+                        <TextBlock Text="{Binding BuyRate}" Opacity="0.7" FontSize="22" FontFamily="Roboto light" Grid.Row="1" Padding="11,0,0,0"/>
                         <TextBlock Text="{Binding BuyTrend}" Opacity="0.6" FontFamily="Roboto light" Grid.Row="1" Grid.Column="1"/>
                     </Grid>
                 </StackPanel>
@@ -80,7 +80,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="88"/>
-            <RowDefinition Height="88"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="18"/>
             <RowDefinition Height="18"/>
@@ -91,7 +90,7 @@
         <Rectangle Grid.Row="0" Grid.Column="0" Fill="#26A69A"/>
         <materialDesign:MaterialDateDisplay VerticalAlignment="Center" Margin="16" Opacity="0.8" FontFamily="Roboto"/>
 
-        <!--#region TILE-->
+      <!--
         <Border Grid.Row="1" Effect="{StaticResource z-depth1}" Background="White"/>
         <DockPanel Grid.Row="1" Margin="3" >
             <TextBlock Text="{Binding CurrencyName}"  DockPanel.Dock="Left" 
@@ -118,10 +117,10 @@
                 </Grid>
             </StackPanel>
         </DockPanel>
-        <!--#endregion-->
+        -->
 
-        <Border Grid.Row="2" Effect="{StaticResource z-depth1}" Background="White"/>
-        <DockPanel Grid.Row="2" Margin="3">
+        <Border Grid.Row="1" Effect="{StaticResource z-depth1}" Background="White"/>
+        <DockPanel Grid.Row="1" Margin="3">
             <ItemsControl x:Name="test" ItemsSource="{Binding}"
                           ItemTemplate="{StaticResource DataTemplate}" >
             </ItemsControl>

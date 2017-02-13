@@ -33,10 +33,10 @@ namespace SimpleApp
             //DataContext = new RateObject();
             Controller c = new Controller();
             c.RetrieveCurrent();
-            
+            DataContext = c.Rates;
             c.UpdateTrends();
            
-            DataContext = c.Rates;
+            
         }
 
 

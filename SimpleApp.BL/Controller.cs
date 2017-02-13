@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace SimpleApp.BL
         {
             StringBuilder url = new StringBuilder();
             url.Append(@"http://openrates.in.ua/rates?date=").
-                    Append(date.Year.ToString() + "-" + date.Month.ToString() + "-" + date.Day);
+                    Append(date.Year + "-" + date.Month + "-" + date.Day);
             return ResponseToModel(ReadJson(url.ToString()),date);
         }
 
@@ -46,7 +46,7 @@ namespace SimpleApp.BL
         private void RetrieveLastDay()
         {
             DateTime datetime = TimeStamp();
-            datetime = datetime.AddDays(-4);
+            datetime = datetime.AddDays(-2);
             var previous = GetRatesByDate(datetime);
             repo.AddRates(previous);
         }

@@ -24,14 +24,16 @@ namespace SimpleApp.BL
         {
             if (dates.Count>1)
             {
-                for (int i = 0; i < dates.Count; i++)
-                {
-                    var previousRates = rates.Where(r => r.TradeDate == dates.ElementAt(i)).ToList();
+                //for (int i = 0; i < dates.Count; i++)
+                //{
+                    var previousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
                     foreach (var item in previousRates)
                     {
                         var current = rates.First(r => r.CurrencyName == item.CurrencyName);
-                        rates.Find(x=>x.TradeDate==current.TradeDate&&x.CurrencyName==current.CurrencyName).SellTrend = Trend(current.SellRate, item.SellRate);
-                    }
+                        //rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
+                        current.SellTrend = current.SellRate - item.SellRate;
+                    current.BuyTrend = current.BuyRate - item.BuyRate;
+                    //}
 
                 }
             }
@@ -40,7 +42,6 @@ namespace SimpleApp.BL
 
         internal List<RateModel> GetRates()
         {
-            UpdateTrends();
             return new List<RateModel>(rates.Where(r => r.TradeDate == dates.Last()).ToList());
             //return rates;
         }
