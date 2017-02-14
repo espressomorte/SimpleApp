@@ -16,6 +16,15 @@ namespace SimpleApp.BL
             return DateTime.Now;
         }
 
+       public bool isBusiness(DateTime date)
+        {
+            if (date.DayOfWeek== DayOfWeek.Sunday||date.DayOfWeek==DayOfWeek.Saturday)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private List<RateModel> GetRatesByDate(DateTime date)
         {
             StringBuilder url = new StringBuilder();
@@ -46,7 +55,10 @@ namespace SimpleApp.BL
         private void RetrieveLastDay()
         {
             DateTime datetime = TimeStamp();
-            datetime = datetime.AddDays(-2);
+            do
+            {
+                datetime = datetime.AddDays(-1);
+            } while (isBusiness(datetime)); 
             var previous = GetRatesByDate(datetime);
             repo.AddRates(previous);
         }

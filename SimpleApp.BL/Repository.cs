@@ -23,19 +23,16 @@ namespace SimpleApp.BL
         protected void UpdateTrends()
         {
             if (dates.Count>1)
-            {
-                //for (int i = 0; i < dates.Count; i++)
-                //{
-                    var previousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
-                    foreach (var item in previousRates)
-                    {
-                        var current = rates.First(r => r.CurrencyName == item.CurrencyName);
-                        //rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
-                        current.SellTrend = current.SellRate - item.SellRate;
-                    current.BuyTrend = current.BuyRate - item.BuyRate;
-                    //}
-
-                }
+            {                   
+                 var previousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
+                 foreach (var item in previousRates)
+                 {
+                     var current = rates.First(r => r.CurrencyName == item.CurrencyName);
+                        
+                     current.SellTrend = current.SellRate - item.SellRate;
+                     current.BuyTrend = current.BuyRate - item.BuyRate;
+             
+                 }
             }
      
         }
