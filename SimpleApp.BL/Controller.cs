@@ -67,9 +67,17 @@ namespace SimpleApp.BL
         public void RetrieveCurrent()
         {
             var data = ReadJson();
-            List<RateModel> list = ResponseToModel(data,TimeStamp());
+            List<RateModel> list = ResponseToModel(data, TimeStamp());
             repo.AddRates(list);
         }
+
+        //read file with json
+        //public void RetrieveCurrent()
+        //{
+        //    var data = new StreamReader("Repo.txt", Encoding.UTF8).ReadLine();
+        //    var list = JsonConvert.DeserializeObject<List<RateModel>>(data);
+        //    repo.AddRates(list);
+        //}
 
         private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data,DateTime date)
         {
@@ -94,10 +102,11 @@ namespace SimpleApp.BL
         }
 
          public void WriteJson()
-        {    
-            StreamWriter file = new StreamWriter("Repo.txt", true);
-            file.WriteAsync(JsonConvert.SerializeObject(Rates));
-            file.Flush();
+        {
+            FileStream file = new FileStream("Repo.txt", FileMode.Create);
+            StreamWriter stream = new StreamWriter(file);
+            stream.WriteAsync(JsonConvert.SerializeObject(Rates));
+            stream.Flush();
             file.Close();
         }
 
