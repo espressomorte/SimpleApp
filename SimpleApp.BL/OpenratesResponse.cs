@@ -2,13 +2,6 @@
 
 namespace SimpleApp.BL
 {
-
-    public class OpenratesResponse
-    {
-        //[JsonProperty("USD")]
-        public Positions Currency { get; set; }
-    }
-
     public class Positions
     {
         [JsonProperty("interbank")]
