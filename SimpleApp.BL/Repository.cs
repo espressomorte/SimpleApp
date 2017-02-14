@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,7 +41,6 @@ namespace SimpleApp.BL
         internal List<RateModel> GetRates()
         {
             return new List<RateModel>(rates.Where(r => r.TradeDate == dates.Last()).ToList());
-            //return rates;
         }
     }
 }

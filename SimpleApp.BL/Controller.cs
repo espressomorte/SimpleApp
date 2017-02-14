@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -36,7 +37,7 @@ namespace SimpleApp.BL
         public void UpdateTrends()
         {
             RetrieveLastDay();
-            
+            WriteJson();
         }
 
         private Dictionary<string, Positions> ReadJson()
@@ -90,6 +91,14 @@ namespace SimpleApp.BL
             {
                 return repo.GetRates();
             }
+        }
+
+         public void WriteJson()
+        {    
+            StreamWriter file = new StreamWriter("Repo.txt", true);
+            file.WriteAsync(JsonConvert.SerializeObject(Rates));
+            file.Flush();
+            file.Close();
         }
 
     }
