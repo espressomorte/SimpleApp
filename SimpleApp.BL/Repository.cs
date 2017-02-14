@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleApp.BL
 {
@@ -11,7 +9,7 @@ namespace SimpleApp.BL
         private List<RateModel> rates = new List<RateModel>();
         private SortedSet<DateTime> dates = new SortedSet<DateTime>();
 
-        public decimal trend(decimal actual, decimal old) => actual - old;
+        public decimal Trend(decimal actual, decimal old) => actual - old;
 
         public void AddRates(List<RateModel> list) {
             rates.AddRange(list);
@@ -28,13 +26,13 @@ namespace SimpleApp.BL
             {
                 //for (int i = 0; i < dates.Count; i++)
                 //{
-                    var PreviousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
-                    foreach (var item in PreviousRates)
+                    var previousRates = rates.Where(r => r.TradeDate == dates.ElementAt(0)).ToList();
+                    foreach (var item in previousRates)
                     {
-                        var Current = rates.First(r => r.CurrencyName == item.CurrencyName);
+                        var current = rates.First(r => r.CurrencyName == item.CurrencyName);
                         //rates.Find(x=>x.TradeDate==Current.TradeDate&&x.CurrencyName==Current.CurrencyName).SellTrend = trend(Current.SellRate, item.SellRate);
-                        Current.SellTrend = Current.SellRate - item.SellRate;
-                    Current.BuyTrend = Current.BuyRate - item.BuyRate;
+                        current.SellTrend = current.SellRate - item.SellRate;
+                    current.BuyTrend = current.BuyRate - item.BuyRate;
                     //}
 
                 }
@@ -42,7 +40,6 @@ namespace SimpleApp.BL
      
         }
 
-        // TODO: rates are exposed, so incapsulation is basically screwed.
         internal List<RateModel> GetRates()
         {
             return new List<RateModel>(rates.Where(r => r.TradeDate == dates.Last()).ToList());
