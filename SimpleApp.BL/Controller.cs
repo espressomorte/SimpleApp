@@ -63,8 +63,8 @@ namespace SimpleApp.BL
             return data.AsParallel().Select(pair => new RateModel
                 {
                     CurrencyName = pair.Key,
-                    BuyRate = pair.Value.interbankRateValues.Buy,
-                    SellRate = pair.Value.interbankRateValues.Sell,
+                    BuyRate = (pair.Value.interbankRateValues ?? pair.Value.nbuRateValues).Buy,
+                    SellRate = (pair.Value.interbankRateValues ?? pair.Value.nbuRateValues).Sell,
                     SellTrend = null,
                     BuyTrend = null,
                     TradeDate = date
