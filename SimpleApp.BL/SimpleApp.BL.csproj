@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRates.cs" />
+    <Compile Include="OnlineAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RateModel.cs" />
     <Compile Include="Controller.cs" />

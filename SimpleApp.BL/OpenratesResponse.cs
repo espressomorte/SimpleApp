@@ -17,4 +17,6 @@ namespace SimpleApp.BL
         [JsonProperty("sell")]
         public decimal Sell { get; set; }
     }
+
+
 }
