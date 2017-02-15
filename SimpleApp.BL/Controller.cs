@@ -10,9 +10,10 @@ namespace SimpleApp.BL
 {
     public class Controller
     {
-        Repository repo = new Repository();
+      //  Repository repo = new Repository();
 
         IRates onlineRates = new OnlineAdapter();
+
 
         //read file with json
         //public void RetrieveCurrent()

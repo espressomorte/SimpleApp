@@ -9,14 +9,13 @@ namespace SimpleApp.BL
 {
     class OnlineAdapter : IRates
     {
-
-        private List<RateModel> onlineRates = new List<RateModel>();
+        Repository repo = new Repository();
 
         public List<RateModel> Load()
         {
-            ReadJson();
-            RetrieveLastDay();
-            return onlineRates;
+            RetrieveCurrent();
+            UpdateTrends();
+            return repo.GetRates();
         }
 
 
@@ -68,14 +67,14 @@ namespace SimpleApp.BL
                 datetime = datetime.AddDays(-1);
             } while (isBusiness(datetime));
             var previous = GetRatesByDate(datetime);
-            onlineRates.AddRange(previous);
+            repo.AddRates(previous);
         }
 
         public void RetrieveCurrent()
         {
             var data = ReadJson();
             List<RateModel> list = ResponseToModel(data, TimeStamp());
-            onlineRates.AddRange(list);
+            repo.AddRates(list);
         }
 
         private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data, DateTime date)
