@@ -1,17 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
 namespace SimpleApp.BL
 {
-    internal class OnlineAdapter : IRates
+    class OnlineAdapter : IRates
     {
-        public void Load()
+
+        private List<RateModel> onlineRates = new List<RateModel>();
+
+        public List<RateModel> Load()
         {
-            throw new NotImplementedException();
+            ReadJson();
+            RetrieveLastDay();
+            return onlineRates;
         }
+
 
         private DateTime TimeStamp()
         {
@@ -38,7 +45,6 @@ namespace SimpleApp.BL
         public void UpdateTrends()
         {
             RetrieveLastDay();
-            //WriteJson();
         }
 
         private Dictionary<string, Positions> ReadJson()
@@ -62,14 +68,14 @@ namespace SimpleApp.BL
                 datetime = datetime.AddDays(-1);
             } while (isBusiness(datetime));
             var previous = GetRatesByDate(datetime);
-            repo.AddRates(previous);
+            onlineRates.AddRange(previous);
         }
 
         public void RetrieveCurrent()
         {
             var data = ReadJson();
             List<RateModel> list = ResponseToModel(data, TimeStamp());
-            repo.AddRates(list);
+            onlineRates.AddRange(list);
         }
 
         private static List<RateModel> ResponseToModel(Dictionary<string, Positions> data, DateTime date)
@@ -85,5 +91,7 @@ namespace SimpleApp.BL
             })
                 .ToList();
         }
+
+
     }
 }

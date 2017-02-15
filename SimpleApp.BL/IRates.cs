@@ -1,7 +1,9 @@
-﻿namespace SimpleApp.BL
+﻿using System.Collections.Generic;
+
+namespace SimpleApp.BL
 {
     internal interface IRates
     {
-        void Load();
+        List<RateModel> Load();
     }
 }
