@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SimpleApp.BL
 {
@@ -16,23 +17,39 @@ namespace SimpleApp.BL
 
 
         //read file with json
-        //public void RetrieveCurrent()
-        //{
-        //    var data = new StreamReader("Repo.txt", Encoding.UTF8).ReadLine();
-        //    var list = JsonConvert.DeserializeObject<List<RateModel>>(data);
-        //    repo.AddRates(list);
-        //}
+        public List<RateModel> RetrieveCurrent()
+        {
+            var data = new StreamReader("Repo.txt", Encoding.UTF8).ReadLine();
+            return JsonConvert.DeserializeObject<List<RateModel>>(data);            
+        }
 
         public List<RateModel> Rates
         {
             get
             {
                 //return repo.GetRates();
-                return onlineRates.Load();
+                return GetRates();
             }
         }
 
-         public void WriteJson()
+        private List<RateModel> GetRates()
+        {
+
+            try
+            {
+               return onlineRates.Load();
+               // WriteJson();
+            }
+            catch (WebException)
+            {               
+                return RetrieveCurrent();
+            }
+
+        }
+
+
+
+        public void WriteJson()
         {
             FileStream file = new FileStream("Repo.txt", FileMode.Create);
             StreamWriter stream = new StreamWriter(file);
